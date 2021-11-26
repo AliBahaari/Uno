@@ -1,4 +1,5 @@
 import random
+from more_itertools import grouper
 
 
 # Config
@@ -18,47 +19,41 @@ for i in range(1, 14):
 all_users = [
     {
         "id": 1,
-        "cards": random.choices(all_cards, k=7)
+        "cards": random.sample(all_cards, 7)
     },
     {
         "id": 2,
-        "cards": random.choices(all_cards, k=7)
+        "cards": random.sample(all_cards, 7)
     },
     {
         "id": 3,
-        "cards": random.choices(all_cards, k=7)
+        "cards": random.sample(all_cards, 7)
     },
     {
         "id": 4,
-        "cards": random.choices(all_cards, k=7)
+        "cards": random.sample(all_cards, 7)
     }
 ]
-
-print(all_users)
 
 
 # Context Card
 context_card = random.choice(all_cards)
-
-print(context_card)
 
 
 # Direction
 direction = 1
 
 
-# First Person
-users_found = []
+# First User
+grouped_cards = grouper(random.sample(all_cards, 52), 4)
+first_user = 0
 
-for i in all_users:
-    user_number = i['id']
-
-    for j in i['cards']:
+for i in grouped_cards:
+    for idx, j in enumerate(i):
         if j['value'] == 1:
 
-            users_found.append(user_number)
-
-print(users_found[0])
+            first_user = idx + 1
+            break
 
 
 # Game
